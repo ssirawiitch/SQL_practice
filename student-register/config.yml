@@ -1,0 +1,3 @@
+permitted_lang: " postgres"
+solutions_dir: model_sols
+initializer: postgresql_initializer.rb

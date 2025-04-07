@@ -1,0 +1,112 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.19 (Debian 12.19-1.pgdg120+1)
+-- Dumped by pg_dump version 12.19 (Debian 12.19-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE ONLY public.registration DROP CONSTRAINT registration_sid_fkey;
+ALTER TABLE ONLY public.student DROP CONSTRAINT student_pkey;
+ALTER TABLE ONLY public.registration DROP CONSTRAINT registration_pkey;
+DROP TABLE public.student;
+DROP TABLE public.registration;
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: registration; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.registration (
+    rid character varying(20) NOT NULL,
+    sid character varying(20) NOT NULL,
+    course character varying(20) NOT NULL,
+    semester character varying(20) NOT NULL
+);
+
+
+ALTER TABLE public.registration OWNER TO admin;
+
+--
+-- Name: student; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.student (
+    sid character varying(20) NOT NULL,
+    sname character varying(100) NOT NULL,
+    major character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.student OWNER TO admin;
+
+--
+-- Data for Name: registration; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.registration (rid, sid, course, semester) FROM stdin;
+R001    S001    CS101   Fall 2025
+R002    S002    EE202   Spring 2024
+R003    S003    ME303   Fall 2023
+R004    S004    BIO101  Spring 2024
+R005    S005    PHYS201 Fall 2025
+R006    S005    CS101   Fall 2024
+R007    S004    EE202   Spring 2024
+R008    S003    ME303   Fall 2023
+R009    S002    BIO101  Spring 2024
+R010    S001    PHYS201 Fall 2025
+\.
+
+
+--
+-- Data for Name: student; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.student (sid, sname, major) FROM stdin;
+S001    John Doe        Computer Science
+S002    Jane Smith      Electrical Engineering
+S003    Michael Brown   Mechanical Engineering
+S004    Emily Davis     Biology
+S005    Daniel Garcia   Physics
+\.
+
+
+--
+-- Name: registration registration_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_pkey PRIMARY KEY (rid);
+
+
+--
+-- Name: student student_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.student
+    ADD CONSTRAINT student_pkey PRIMARY KEY (sid);
+
+
+--
+-- Name: registration registration_sid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.registration
+    ADD CONSTRAINT registration_sid_fkey FOREIGN KEY (sid) REFERENCES public.student(sid) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--

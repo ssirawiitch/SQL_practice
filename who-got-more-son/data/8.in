@@ -1,0 +1,154 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.22 (Debian 12.22-1.pgdg120+1)
+-- Dumped by pg_dump version 12.22 (Debian 12.22-1.pgdg120+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE ONLY public.employees DROP CONSTRAINT employees_did_fkey;
+ALTER TABLE ONLY public.employees DROP CONSTRAINT employees_pkey;
+ALTER TABLE ONLY public.departments DROP CONSTRAINT departments_pkey;
+DROP TABLE public.employees;
+DROP TABLE public.departments;
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: departments; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.departments (
+    did integer NOT NULL,
+    dname character varying(100)
+);
+
+
+ALTER TABLE public.departments OWNER TO admin;
+
+--
+-- Name: employees; Type: TABLE; Schema: public; Owner: admin
+--
+
+CREATE TABLE public.employees (
+    eid integer NOT NULL,
+    ename character varying(100),
+    did integer
+);
+
+
+ALTER TABLE public.employees OWNER TO admin;
+
+--
+-- Data for Name: departments; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.departments (did, dname) FROM stdin;
+1	Finance
+2	HR
+3	IT
+4	Marketing
+5	Sales
+6	Operations
+7	Legal
+8	Customer Support
+\.
+
+
+--
+-- Data for Name: employees; Type: TABLE DATA; Schema: public; Owner: admin
+--
+
+COPY public.employees (eid, ename, did) FROM stdin;
+1	Jason M	1
+2	Sonia K	1
+3	Anderson J	1
+4	Nelson P	2
+5	Jackson R	2
+6	Samson Q	2
+7	Sonny W	2
+8	Alison T	2
+9	Johnson W	3
+10	Sonny B	3
+11	Samson L	3
+12	Jackson V	3
+13	Emerson Y	3
+14	Alison X	3
+15	Anderson O	3
+16	Madison Q	3
+17	Jason C	3
+18	Nelson U	3
+19	Mason Z	4
+20	Hudson A	4
+21	Gibson F	4
+22	Bronson M	4
+23	Emerson T	5
+24	Wilson D	6
+25	Harrison S	6
+26	Jason N	7
+27	Liam K	8
+28	Emily J	8
+29	Ethan B	8
+30	Olivia C	8
+31	Noah D	8
+32	Emma E	8
+33	Sophia G	8
+34	James H	8
+35	Charlotte I	8
+36	Henry L	8
+37	Amelia M	8
+38	Alexander O	8
+39	Lucas P	8
+40	Isabella Q	8
+41	Mia R	8
+42	Benjamin S	8
+43	Scarlett T	8
+44	Elijah U	8
+45	Eleanor V	8
+46	Jack W	8
+47	David X	8
+48	Samuel Y	8
+49	Penelope Z	8
+50	Zoe A	8
+\.
+
+
+--
+-- Name: departments departments_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.departments
+    ADD CONSTRAINT departments_pkey PRIMARY KEY (did);
+
+
+--
+-- Name: employees employees_pkey; Type: CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_pkey PRIMARY KEY (eid);
+
+
+--
+-- Name: employees employees_did_fkey; Type: FK CONSTRAINT; Schema: public; Owner: admin
+--
+
+ALTER TABLE ONLY public.employees
+    ADD CONSTRAINT employees_did_fkey FOREIGN KEY (did) REFERENCES public.departments(did);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
